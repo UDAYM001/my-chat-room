@@ -10,7 +10,7 @@
     </p>
 </p>
 
-# Chat Engine ✨Pretty✨
+# Django + Chat Engine ✨Pretty✨
 
 ## How to add chat to a Django / React Project.
 
