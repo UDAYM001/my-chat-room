@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Context } from "../context";
+import { Context } from "../functions/context";
 
 import ChatWrapper from "./ChatWrapper";
 

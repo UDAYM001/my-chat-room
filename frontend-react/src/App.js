@@ -5,7 +5,7 @@ import "./App.css";
 import AuthPage from "./authPage";
 import ChatsPage from "./chatsPage";
 
-import { Context } from "./context";
+import { Context } from "./functions/context";
 
 function App() {
   const { user } = useContext(Context);

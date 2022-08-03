@@ -2,9 +2,8 @@ import { useContext, useState } from "react";
 
 import axios from "axios";
 
-import { Context } from "../context";
-
-import { useIsMobile } from "../hooks/isMobile";
+import { Context } from "../functions/context";
+import { useIsMobile } from "../functions/isMobile";
 
 import TextInput from "./components/TextInput";
 import Button from "./components/Button";

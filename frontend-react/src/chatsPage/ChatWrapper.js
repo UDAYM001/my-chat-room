@@ -1,6 +1,6 @@
 import valley from "../assets/valley.jpeg";
 
-import { useIsMobile } from "../hooks/isMobile";
+import { useIsMobile } from "../functions/isMobile";
 
 const ChatWrapper = (props) => {
   const isMobile = useIsMobile();
