@@ -3,17 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
 
-class UserPublicSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            'id', 
-            'username', 
-            'email', 
-            'first_name',
-            'last_name',
-        ]
-
 class UserSerializer(serializers.ModelSerializer):
     custom_json = serializers.JSONField(required=False)
     class Meta:

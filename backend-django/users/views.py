@@ -1,14 +1,10 @@
 from django.contrib.auth.models import User
 
-from rest_framework import permissions, status, generics
+from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import UserSerializer, UserPublicSerializer
-
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserPublicSerializer
+from users.serializers import UserSerializer
 
 class MyAccount(APIView):
     permissions=[permissions.IsAuthenticated, permissions.AllowAny]
@@ -35,3 +31,36 @@ class MyAccount(APIView):
         request.user.delete()
         return Response({}, status=status.HTTP_204_NO_CONTENT)
     
+
+class CreateSuperUser(APIView):
+    permissions=[permissions.AllowAny]
+
+    def get(self, request):
+        user = User.objects.create_superuser(
+            username='admin',
+            email='admin@mail.com',
+            first_name='Admin',
+            last_name='User',
+            password='pass1234'
+        )
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data)
+
+class DeleteChatEngineUsers(APIView):
+
+    def get(self, request):
+        import requests, os, json
+
+        users = requests.get(
+            'https://api.chatengine.io/users/',
+            headers={"Private-Key": os.environ['PRIVATE_KEY']}
+        )
+
+        for user in json.loads(users.content):
+            response = requests.delete(
+                'https://api.chatengine.io/users/{}/'.format(user['id']),
+                headers={"Private-Key": os.environ['PRIVATE_KEY']}
+            )
+            print(response.status_code)
+        
+        return Response("Chat Engine users deleted", status=status.HTTP_200_OK)
