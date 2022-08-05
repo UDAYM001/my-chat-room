@@ -8,7 +8,7 @@ import os
 @receiver(post_save, sender=User)
 def on_create_user(sender, instance, created, **kwargs):
     if created:
-        requests.post(
+        requests.post( # CREATE USER API
             'https://api.chatengine.io/users/', 
             headers={ "Private-Key": os.environ['PRIVATE_KEY'] }, 
             json={
@@ -25,7 +25,7 @@ def on_create_user(sender, instance, created, **kwargs):
 def on_update_user(sender, instance, **kwargs):
     try:
         old_user = User.objects.get(id=instance.id)
-        requests.patch(
+        requests.patch( # UPDATE USER API
             'https://api.chatengine.io/users/me/',
             headers={ 
                 "Project-Id": os.environ['PROJECT_ID'],
@@ -45,7 +45,7 @@ def on_update_user(sender, instance, **kwargs):
 
 @receiver(pre_delete, sender=User)
 def on_delete_user(sender, instance, **kwargs):
-    requests.delete(
+    requests.delete( # DELETE USER API
         'https://api.chatengine.io/users/me/', 
         headers={
             "Project-Id": os.environ['PROJECT_ID'],
