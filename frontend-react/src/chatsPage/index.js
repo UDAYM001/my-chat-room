@@ -9,7 +9,7 @@ const ChatsPage = () => {
 
   return (
     <PrettyChatWindow
-      projectId={projectId} // "5d498a31-cd23-42b7-b367-4fcc9463bd2f"
+      projectId="5d498a31-cd23-42b7-b367-4fcc9463bd2f"
       username={user.username} // "admin"
       secret={user.secret} // "pbkdf2_sha256$320000$nzEFUmjPOroNRTbdHHoFlp$82AkZZd1ZepvhMSIf4UOqoKv+mrYXtL+9PFfEXxLOhw="
       style={{ height: "100%" }}
@@ -18,5 +18,3 @@ const ChatsPage = () => {
 };
 
 export default ChatsPage;
-
-const projectId = "5d498a31-cd23-42b7-b367-4fcc9463bd2f";
