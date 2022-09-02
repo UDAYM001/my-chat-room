@@ -5,12 +5,16 @@ from django.contrib.auth.models import User
 import requests
 import os
 
+from dotenv import dotenv_values
+
+configs = dotenv_values(".env")
+
 @receiver(post_save, sender=User)
 def on_create_user(sender, instance, created, **kwargs):
     if created:
         requests.post( # CREATE USER API
             'https://api.chatengine.io/users/', 
-            headers={ "Private-Key": os.environ['PRIVATE_KEY'] }, 
+            headers={ "Private-Key": configs['PRIVATE_KEY'] }, 
             json={
                 'username': instance.username,
                 'email': instance.email,
@@ -28,7 +32,7 @@ def on_update_user(sender, instance, **kwargs):
         requests.patch( # UPDATE USER API
             'https://api.chatengine.io/users/me/',
             headers={ 
-                "Project-Id": os.environ['PROJECT_ID'],
+                "Project-Id": configs['PROJECT_ID'],
                 "User-Name": old_user.username,
                 "User-Secret": old_user.password
             },
@@ -48,7 +52,7 @@ def on_delete_user(sender, instance, **kwargs):
     requests.delete( # DELETE USER API
         'https://api.chatengine.io/users/me/', 
         headers={
-            "Project-Id": os.environ['PROJECT_ID'],
+            "Project-Id": configs['PROJECT_ID'],
             "User-Name": instance.username,
             "User-Secret": instance.password
         }
